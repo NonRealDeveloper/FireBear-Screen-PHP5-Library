@@ -1,39 +1,39 @@
 v 0.2.1 stable
 
-Использование:
-1. Подключаем Firebear.php
+РСЃРїРѕР»СЊР·РѕРІР°РЅРёРµ:
+1. РџРѕРґРєР»СЋС‡Р°РµРј Firebear.php
 
 require_once 'Firebear.php';
 
-2. Инициализируем FireBear используя опции
+2. РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј FireBear РёСЃРїРѕР»СЊР·СѓСЏ РѕРїС†РёРё
 
 $cfg = array('gdoptimizer' => true);
 $Screenshots = new Firebear($cfg);
 
-список доступных опций:
+СЃРїРёСЃРѕРє РґРѕСЃС‚СѓРїРЅС‹С… РѕРїС†РёР№:
 filepattern
 badfilepath
 screenssize
 gdoptimizer
 pathtotools
 
-подробнее смотрите внутри класса
+РїРѕРґСЂРѕР±РЅРµРµ СЃРјРѕС‚СЂРёС‚Рµ РІРЅСѓС‚СЂРё РєР»Р°СЃСЃР°
 
-3. Грабинг изображений из гугла
+3. Р“СЂР°Р±РёРЅРі РёР·РѕР±СЂР°Р¶РµРЅРёР№ РёР· РіСѓРіР»Р°
 
-с показом:
-$Screenshots->ShowScreen('президент');
+СЃ РїРѕРєР°Р·РѕРј:
+$Screenshots->ShowScreen('РїСЂРµР·РёРґРµРЅС‚');
 
-без показа:
-$Screenshots->MakeScreen('президент');
+Р±РµР· РїРѕРєР°Р·Р°:
+$Screenshots->MakeScreen('РїСЂРµР·РёРґРµРЅС‚');
 
-с заданым именем файла:
-$Screenshots->MakeScreen('президент', 'russian.jpeg');
+СЃ Р·Р°РґР°РЅС‹Рј РёРјРµРЅРµРј С„Р°Р№Р»Р°:
+$Screenshots->MakeScreen('РїСЂРµР·РёРґРµРЅС‚', 'russian.jpeg');
 
-4. Снятие скриншота с диспетчера задач на Windows
+4. РЎРЅСЏС‚РёРµ СЃРєСЂРёРЅС€РѕС‚Р° СЃ РґРёСЃРїРµС‚С‡РµСЂР° Р·Р°РґР°С‡ РЅР° Windows
 
 $Screenshots->InitDaemon('taskmgr');
-$Screenshots->PrintScreen('screen.png', 'Диспетчер задач Windows');
+$Screenshots->PrintScreen('screen.png', 'Р”РёСЃРїРµС‚С‡РµСЂ Р·Р°РґР°С‡ Windows');
 
-альтернативный вариант кода:
-$Screenshots->InitDaemon('taskmgr')->PrintScreen('screen.png', 'Диспетчер задач Windows');
+Р°Р»СЊС‚РµСЂРЅР°С‚РёРІРЅС‹Р№ РІР°СЂРёР°РЅС‚ РєРѕРґР°:
+$Screenshots->InitDaemon('taskmgr')->PrintScreen('screen.png', 'Р”РёСЃРїРµС‚С‡РµСЂ Р·Р°РґР°С‡ Windows');
