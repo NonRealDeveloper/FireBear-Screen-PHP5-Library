@@ -8,7 +8,7 @@
  * 3. работа с различными типами изображений
  * 
  * @author Mars
- * @version 0.2.0
+ * @version 0.2.1
  */
 class Firebear
 {
