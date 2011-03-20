@@ -7,8 +7,8 @@
  * 2. работа с базой данных
  * 3. работа с различными типами изображений
  * 
- * @author Mars
- * @version 0.2.1
+ * @author NonRealDeveloper
+ * @version 0.3.0
  */
 class Firebear
 {
@@ -55,13 +55,23 @@ class Firebear
 	}
 	
 	/**
+	 * Получить путь к файлу скриншота, основываясь на filepattern
+	 * @param string $text текст для поиска скриншота
+	 * @return string
+	 */
+	public function Path ($text)
+	{
+		return str_replace('<FILE>', md5($text), $this->filepattern);
+	}
+	
+	/**
 	 * Создать скриншот (если нету) и вывести его в браузер
 	 * @param string $text текст для поиска скриншота
 	 * @param string $fname имя файла, если false то используется шаблон
 	 */
 	public function ShowScreen ($text, $fname = false)
 	{
-		$fname = ($fname) ? $fname : str_replace('<FILE>', md5($text), $this->filepattern);
+		$fname = ($fname) ? $fname : $this->Path($text);
 		$this->MakeScreen($text, $fname);
 		header("Location: $fname", true, 302);
 		exit;
@@ -74,7 +84,7 @@ class Firebear
 	 */
 	public function MakeScreen ($text, $fname = false)
 	{
-		$fname = ($fname) ? $fname : str_replace('<FILE>', md5($text), $this->filepattern);
+		$fname = ($fname) ? $fname : $this->Path($text);
 		if (! file_exists($fname)) {
 			if (! $result = $this->GetImageFromGoogle($text, $fname)) {
 				$this->NoScreenShotAvailable($fname);
@@ -137,24 +147,13 @@ class Firebear
 	 */
 	public function GetImageFromGoogle ($text, $fname = false)
 	{
-		$fname = ($fname) ? $fname : str_replace('<FILE>', md5($text), $this->filepattern);
+		$fname = ($fname) ? $fname : $this->Path($text);
 		$request = file_get_contents("http://images.google.com/images?hl=ru&source=imghp&safe=off&tbs=isch:1,isz:m&source=lnt&q=".urlencode($text));
 		preg_match_all("/imgurl\S+(http\:\/\/\S+jpe?g)\S+imgrefurl/i", $request, $out);
-		if ($src = @fopen($out[1][0], 'r'))
-		{
-			$write = fopen($fname, 'w');
-			stream_copy_to_stream($src, $write);
-			fclose($fname);
-			return true;
-		}
-		elseif (isset($out[1][1]) and $src = @fopen($out[1][1], 'r'))
-		{
-			$write = fopen($fname, 'w');
-			stream_copy_to_stream($src, $write);
-			fclose($fname);
-			return true;
-		}
-		elseif (isset($out[1][2]) and $src = @fopen($out[1][2], 'r'))
+		if	(	($src = @fopen($out[1][0], 'r')) 
+				or (isset($out[1][1]) and $src = @fopen($out[1][1], 'r')) 
+				or (isset($out[1][2]) and $src = @fopen($out[1][2], 'r'))
+			)
 		{
 			$write = fopen($fname, 'w');
 			stream_copy_to_stream($src, $write);
